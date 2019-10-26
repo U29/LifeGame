@@ -9,6 +9,30 @@ import copy
 (WIDTH, HEIGHT) = (400, 400)
 SCREEN_SIZE = (WIDTH, HEIGHT)  # 画面サイズ
 
+# ゲーム内変数・関数の設定
+CELLS = [[0 for i in range(int(WIDTH/10))] for j in range(int(HEIGHT/10))]
+
+def cell_check(check_x, check_y):
+    """ To check cell dead or alive for next turn """
+    living = 0
+    if CELLS[check_y][check_x-1] == 1:
+        living += 1
+    if CELLS[check_y][check_x+1] == 1:
+        living += 1
+    if CELLS[check_y-1][check_x] == 1:
+        living += 1
+    if CELLS[check_y+1][check_x] == 1:
+        living += 1
+    if CELLS[check_y+1][check_x-1] == 1:
+        living += 1
+    if CELLS[check_y-1][check_x+1] == 1:
+        living += 1
+    if CELLS[check_y+1][check_x+1] == 1:
+        living += 1
+    if CELLS[check_y-1][check_x-1] == 1:
+        living += 1
+    return living
+
 # pygameを初期化
 pygame.init()
 # SCREEN_SIZEの画面を作成
@@ -37,31 +61,6 @@ for y in range(int(HEIGHT / 10)):
 pygame.display.update()  # 画面を更新
 # pygame.time.delay(1000)
 
-# ゲーム内変数・関数の設定
-CELLS = [[0 for i in range(int(WIDTH/10))] for j in range(int(HEIGHT/10))]
-
-def cell_check(check_x, check_y):
-    """ To check cell dead or alive for next turn """
-    living = 0
-    if CELLS[check_y][check_x-1] == 1:
-        living += 1
-    if CELLS[check_y][check_x+1] == 1:
-        living += 1
-    if CELLS[check_y-1][check_x] == 1:
-        living += 1
-    if CELLS[check_y+1][check_x] == 1:
-        living += 1
-    if CELLS[check_y+1][check_x-1] == 1:
-        living += 1
-    if CELLS[check_y-1][check_x+1] == 1:
-        living += 1
-    if CELLS[check_y+1][check_x+1] == 1:
-        living += 1
-    if CELLS[check_y-1][check_x-1] == 1:
-        living += 1
-    return living
-
-# print(CELLS)
 # ゲームループ
 while True:
     CELLS_TEMP = copy.deepcopy(CELLS)
